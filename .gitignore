@@ -1,0 +1,15 @@
+**/RemoteSystemsTempFiles
+**/.DS_Store
+**/.metadata
+**/.project
+**/.settings
+**/.classpath
+**/node_modules
+**/target/**
+**/mvnw.cmd
+**/istio/istio-*
+.vscode/*
+**/mongo-data/*
+*.zip
+**/mongo_data/*
+
