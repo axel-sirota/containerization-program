@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dynamic-ingress
+spec:
+  ingressClassName: nginx  # Use the correct Ingress Class for your environment
+  rules:
+  - host: "dynamic.local"
+    http:
+      paths:
+      - path: /hello
+        pathType: Prefix
+        backend:
+          service:
+            name: dynamic-ingress-microservice-a
+            port:
+              number: 80
+      - path: /post
+        pathType: Prefix
+        backend:
+          service:
+            name: dynamic-ingress-microservice-b
+            port:
+              number: 80

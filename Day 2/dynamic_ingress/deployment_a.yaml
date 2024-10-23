@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dynamic-ingress-microservice-a
+  labels:
+    app: dynamic-ingress-microservice-a
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dynamic-ingress-microservice-a
+  template:
+    metadata:
+      labels:
+        app: dynamic-ingress-microservice-a
+    spec:
+      containers:
+      - name: dynamic-ingress-microservice-a
+        image: axelsirota/dynamic-ingress-microservice-a:latest
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dynamic-ingress-microservice-a
+spec:
+  selector:
+    app: dynamic-ingress-microservice-a
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+  type: ClusterIP
