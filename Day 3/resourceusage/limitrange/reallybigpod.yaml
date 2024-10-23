@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: really-big-pod
+spec:
+  containers:
+  - name: nginx
+    image: nginx:latest
+    resources:
+      limits:
+        cpu: "2000m"
+        memory: "2000Mi"
+      requests:
+        cpu: "501m"
+        memory: "257Mi"
