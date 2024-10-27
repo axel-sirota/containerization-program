@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: loader
+spec:
+  containers:
+  - name: loader
+    image: bunchjesse/loadtest
+    env:
+      - name: NUM_USERS
+        value: "5"  # Number of concurrent users or requests
+      - name: URL
+        value: "http://prometheus-exporter-service.default.svc.cluster.local:80"  # Target your Flask service
+      - name: DURATION
+        value: "20000"  # Duration of the test in milliseconds

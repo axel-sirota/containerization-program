@@ -1,0 +1,24 @@
+# Disable components that may not be required in local setups
+kubeControllerManager:
+  enabled: true
+kubeScheduler:
+  enabled: true
+kubeProxy:
+  enabled: true
+etcd:
+  enabled: true
+
+prometheus:
+  prometheusSpec:
+    podMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
+    scrapeConfigNamespaceSelector: null
+    
+ # Ensures only ServiceMonitors with this label are included
+
+# Node Exporter settings (for environments without access to host file systems)
+nodeExporter:
+  enabled: false
+  hostRootFsMount: false
+  extraHostPathMounts: []
+
