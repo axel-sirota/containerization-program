@@ -1,0 +1,37 @@
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-microservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-microservice
+  template:
+    metadata:
+      labels:
+        app: flask-microservice
+    spec:
+      containers:
+        - name: flask-microservice
+          image: axelsirota/flask-microservice
+          ports:
+            - containerPort: 5000
+          resources:
+            requests:
+              cpu: 200m   # CPU requests needed for accurate HPA scaling
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-microservice
+spec:
+  selector:
+    app: flask-microservice
+  ports:
+    - protocol: TCP
+      nodePort: 30080
+      port: 80
+      targetPort: 5000
+  type: NodePort

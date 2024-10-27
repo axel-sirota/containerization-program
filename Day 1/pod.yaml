@@ -1,9 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: nginx-pod
-  labels:
-    app: nginx
+  name: nginx-pod-test
 spec:
   containers:
   - name: nginx-container

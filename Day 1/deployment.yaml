@@ -9,10 +9,12 @@ spec:
   selector:
     matchLabels:
       app: nginx
+      team: awesome
   template:
     metadata:
       labels:
         app: nginx
+        team: awesome
     spec:
       containers:
       - name: nginx

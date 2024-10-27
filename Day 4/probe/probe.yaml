@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: aaxelsirota/versioned-nginx:liveness
+        image: axelsirota/versioned-nginx:liveness
         livenessProbe:
           httpGet:
             path: /
