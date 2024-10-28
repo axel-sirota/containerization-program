@@ -6,7 +6,8 @@ helm repo update
 
 2. Install Prometheus
 
-helm install prometheus prometheus-community/prometheus --namespace default
+helm install prometheus prometheus-community/kube-prometheus-stack --namespace default -f values.yaml
 
 3. Add grafana
 
+helm install grafana grafana/grafana --namespace default
