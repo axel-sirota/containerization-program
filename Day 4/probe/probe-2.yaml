@@ -15,10 +15,32 @@ spec:
       containers:
       - name: nginx
         image: axelsirota/versioned-nginx:liveness
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+        readinessProbe:
+          exec:
+            command:
+              - cat
+              - /usr/share/nginx/html/index.html
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        livenessProbe:
+          exec:
+            command:
+              - cat
+              - /usr/share/nginx/html/index.html
+          initialDelaySeconds: 5
+          periodSeconds: 5
       initContainers:
       - name: random-wait
         image: busybox:1.28
         command: ['sh', '-c', 'echo Sleeping...; sleep $((RANDOM % 30)); echo Done;']
+
 ---
 kind: Service
 apiVersion: v1

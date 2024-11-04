@@ -7,6 +7,7 @@ helm repo update
 2. Install Prometheus
 
 helm install prometheus prometheus-community/prometheus --namespace default --set server.service.type=LoadBalancer
+helm install crd prometheus-community/prometheus-operator-crds
 
 3. Apply the app and configmap
 
