@@ -6,8 +6,27 @@ helm repo update
 
 2. Install Prometheus
 
-helm install prometheus prometheus-community/kube-prometheus-stack --namespace default -f values.yaml
+helm install prometheus prometheus-community/prometheus --namespace default --set server.service.type=LoadBalancer
 
-3. Add grafana
+3. Apply the app and configmap
+
+4. Edit the prometheus-server to use the configmap, it should look like this in volumes:
+
+```
+volumes:
+- configMap:
+    defaultMode: 420
+    name: prometheus-config  # Change this to the custom ConfigMap
+  name: config-volume
+- name: storage-volume
+  persistentVolumeClaim:
+    claimName: prometheus-server
+```
+
+5. Restart Prometheus 
+
+6. Add grafana
 
 helm install grafana grafana/grafana --namespace default
+
+7. Configure everything in grafana setting the URL to http://prometheus-server.default.svc.cluster.local:80

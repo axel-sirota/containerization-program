@@ -32,6 +32,7 @@ spec:
           initialDelaySeconds: 5
           periodSeconds: 10
 
+
 ---
 
 apiVersion: v1
@@ -40,36 +41,30 @@ metadata:
   name: prometheus-exporter-service
   namespace: default
   labels:
-    app.kubernetes.io/part-of: dms
     app: prometheus-exporter
-  annotations:
-    prometheus.io/port: "http"
-    prometheus.io/scrape: "true"
 spec:
-  type: NodePort
   selector:
     app: prometheus-exporter
   ports:
-    - name: http  # Adding a name to match the ServiceMonitor
-      protocol: TCP
+    - name: http
       port: 80
       targetPort: 80
-      nodePort: 30007
+
 
 ---
+
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: prometheus-exporter-servicemonitor
   namespace: default
   labels:
-    prometheus: monitoring  # Ensure this matches your Helm configuration
-    release: prometheus
+    release: prometheus  # Make sure this matches the Prometheus release label
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/part-of: dms # Match labels for your Service
+      app: prometheus-exporter
   endpoints:
-    - port: http  # Matches the port name in the Service
-      path: /metrics
+    - port: http      # Matches the port name in the Service
+      path: /metrics  # Flask's default Prometheus metrics path
       interval: 15s
